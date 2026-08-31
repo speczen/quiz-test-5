@@ -1,0 +1,42 @@
+[
+    {
+        "name": "ambedkar",
+        "image": "images/ambedkar.png"
+    },
+    {
+        "name": "aryabatta",
+        "image": "images/aryabatta.png"
+    },
+    {
+        "name": "issac newton",
+        "image": "images/issac newton.png"
+    },
+    {
+        "name": "mahatma ghandhi",
+        "image": "images/mahatma ghandhi.png"
+    },
+    {
+        "name": "micheal jackson",
+        "image": "images/micheal jackson.png"
+    },
+    {
+        "name": "mother teresa",
+        "image": "images/mother teresa.png"
+    },
+    {
+        "name": "napoleon bonaparte",
+        "image": "images/napoleon bonaparte.png"
+    },
+    {
+        "name": "srinivasa ramanujan",
+        "image": "images/srinivasa ramanujan.png"
+    },
+    {
+        "name": "subhas chandra bose",
+        "image": "images/subhas chandra bose.png"
+    },
+    {
+        "name": "tanguturi prakasam panthulu",
+        "image": "images/tanguturi prakasam panthulu.png"
+    }
+]
