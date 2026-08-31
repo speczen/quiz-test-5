@@ -5,7 +5,7 @@
 const SUPABASE_URL = "https://uyvgkughmyofknhmuckh.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_-PnsghRQz6LtKCBTm1OpHA_Pm4xGSQv";
 
-const MAX_ROUNDS = 5;
+const MAX_ROUNDS = 10;
 
 let people = [];
 let currentPerson = null;
