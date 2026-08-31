@@ -14,6 +14,9 @@ let questionNumber = 0;
 let usedPeople = [];
 let playerName = "";
 
+let timeLeft = 10;
+let timerInterval = null;
+const QUESTION_TIME = 10;
 // this code was made by Injeti Roni Atchut of class X B
 
 const startScreen = document.getElementById("start-screen");
@@ -30,6 +33,13 @@ const resultElement = document.getElementById("result");
 const nextButton = document.getElementById("next-button");
 const scoreElement = document.getElementById("score");
 const questionNumberElement = document.getElementById("question-number");
+
+const timerElement = document.createElement("div");
+timerElement.id = "timer";
+timerElement.textContent = "Time: 10";
+timerElement.style.fontWeight = "bold";
+timerElement.style.margin = "10px 0";
+questionNumberElement.parentElement.appendChild(timerElement);
 
 const finalScoreElement = document.getElementById("final-score");
 const leaderboardElement = document.getElementById("leaderboard");
@@ -102,6 +112,56 @@ function getRandomPerson() {
 
 // this code was made by Injeti Roni Atchut of class X B
 
+function stopTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+}
+
+function startTimer() {
+    stopTimer();
+
+    timeLeft = QUESTION_TIME;
+    timerElement.textContent = `Time: ${timeLeft}`;
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+
+        timerElement.textContent = `Time: ${timeLeft}`;
+
+        if (timeLeft <= 0) {
+            stopTimer();
+
+            const buttons = document.querySelectorAll(".option-button");
+
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
+
+            resultElement.textContent =
+                "Time's up! The answer was " + currentPerson.name;
+
+            resultElement.style.color = "#ea4335";
+
+            buttons.forEach(button => {
+                if (button.textContent === currentPerson.name) {
+                    button.classList.add("correct");
+                }
+            });
+
+            if (questionNumber < MAX_ROUNDS) {
+                nextButton.style.display = "inline-block";
+            } else {
+                resultElement.textContent +=
+                    ` Final score: ${score}/${MAX_ROUNDS}`;
+
+                setTimeout(finishGame, 900);
+            }
+        }
+    }, 1000);
+}
+
 function nextQuestion() {
     if (questionNumber >= MAX_ROUNDS) {
         finishGame();
@@ -129,17 +189,21 @@ function nextQuestion() {
     shuffle(choices);
 
     choices.forEach(person => {
-        const button = document.createElement("button");
-        button.classList.add("option-button");
-        button.textContent = person.name;
-        button.addEventListener("click", () => checkAnswer(button, person));
-        optionsElement.appendChild(button);
-    });
+    const button = document.createElement("button");
+    button.classList.add("option-button");
+    button.textContent = person.name;
+    button.addEventListener("click", () => checkAnswer(button, person));
+    optionsElement.appendChild(button);
+});
+
+startTimer();
 }
 
 // this code was made by Injeti Roni Atchut of class X B
 
 function checkAnswer(selectedButton, selectedPerson) {
+    stopTimer();
+
     const buttons = document.querySelectorAll(".option-button");
     buttons.forEach(button => button.disabled = true);
 
@@ -188,6 +252,8 @@ function supabaseHeaders() {
 }
 
 async function finishGame() {
+    stopTimer();
+
     quizScreen.style.display = "none";
     leaderboardScreen.style.display = "block";
 
